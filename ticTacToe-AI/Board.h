@@ -1,4 +1,6 @@
 #include <iostream>
+#include <time.h>
+
 #pragma once
 class Board
 {
@@ -10,13 +12,22 @@ private:
 	const char X = 'X';
 	const char O = 'O';
 	char answer = ' ';
+	
 public:
 	void drawBoard();
 	int checkPlayer(int player);
-	void askCell();
+	int askCell();
 	void putCharacter(int cell);
+	void putCharacterAI(int cell);
+	void setWinner(int winner);
+	int getWinner();
 	bool checkWin();
 	void play();
 	bool checkIfBoardFull();
+	void AIPlay(int difficulty);
+	void TwoAI(int difficulty);
+	int randomAi();
+	int winningMovesAi(int player);
+	int checkDifficulty(int difficulty);
 };
 

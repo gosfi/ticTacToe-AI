@@ -23,13 +23,13 @@ int Board::checkPlayer(int player)
 		return 1;
 }
 
-void Board::askCell()
+int Board::askCell()
 {
 	std::cout << "Enter a number: ";
 	std::cin >> this->cell;
 	if (this->board[cell - 1] != this->X && this->board[cell - 1] != this->O)
 	{
-		putCharacter(cell - 1);
+		return cell - 1;
 	}
 	else
 	{
@@ -43,10 +43,25 @@ void Board::putCharacter(int cell)
 	{
 		this->board[cell] = this->X;
 	}
-	else if(player == 1)
+	else if (player == 1)
 	{
 		this->board[cell] = this->O;
 	}
+}
+
+void Board::putCharacterAI(int cell)
+{
+	this->board[cell] = this->O;
+}
+
+void Board::setWinner(int winner)
+{
+	this->player = winner;
+}
+
+int Board::getWinner()
+{
+	return this->player;
 }
 
 bool Board::checkWin()
@@ -93,27 +108,29 @@ bool Board::checkWin()
 
 void Board::play()
 {
-	while (!hasWon && !isTie)
+	do
 	{
 		system("cls");
 		drawBoard();
 		this->player = checkPlayer(this->player);
-		askCell();
+		this->cell = askCell();
+		putCharacter(this->cell);
 		this->hasWon = checkWin();
 		this->isTie = checkIfBoardFull();
 		this->player += 1;
-	}
+	} while (!hasWon && !isTie);
+
 	if (hasWon)
 	{
 		system("cls");
 		drawBoard();
-		std::cout << "player " << this->player << " has won!" << std::endl;
+		setWinner(player);
 	}
 	else if (isTie)
 	{
 		system("cls");
 		drawBoard();
-		std::cout << "The game is tied!" << std::endl;
+		setWinner(-1);
 	}
 }
 
@@ -134,6 +151,104 @@ bool Board::checkIfBoardFull()
 	else
 	{
 		return false;
+	}
+}
+
+void Board::AIPlay(int difficulty = 1)
+{
+	srand(time(NULL));
+	do
+	{
+		system("cls");
+		drawBoard();
+		this->player = checkPlayer(this->player);
+		this->cell = askCell();
+		putCharacter(this->cell);
+		this->player++;
+
+		switch (difficulty)
+		{
+		case 1:
+			this->cell = randomAi();
+			putCharacterAI(this->cell);
+			this->player++;
+			break;
+		}
+		this->hasWon = checkWin();
+		this->isTie = checkIfBoardFull();
+	} while (!hasWon && !isTie);
+	if (hasWon)
+	{
+		system("cls");
+		drawBoard();
+		setWinner(player);
+	}
+	else if (isTie)
+	{
+		system("cls");
+		drawBoard();
+		setWinner(-1);
+	}
+}
+
+void Board::TwoAI(int difficulty)
+{
+	srand(time(NULL));
+	do 
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			system("cls");
+			drawBoard();
+			this->player = checkPlayer(this->player);
+			this->cell = checkDifficulty(difficulty);
+		}
+	} while (!this->hasWon && !isTie);
+	if (hasWon)
+	{
+		system("cls");
+		drawBoard();
+		setWinner(player);
+	}
+	else if (isTie)
+	{
+		system("cls");
+		drawBoard();
+		setWinner(1);
+	}
+}
+
+int Board::randomAi()
+{
+	int cell = rand() % 8;
+	if (this->board[cell] == this->X || this->board[cell] == this->O)
+	{
+		randomAi();
+	}
+	else
+	{
+		return cell;
+	}
+}
+
+int Board::winningMovesAi(int player)
+{
+	return 0;
+}
+
+int Board::checkDifficulty(int difficulty)
+{
+	int cell = 0;
+	switch(difficulty)
+	{
+	case 1:
+		cell = randomAi();
+		return cell;
+		break;
+	case 2:
+		cell = winningMovesAi(this->player);
+		return cell;
+		break;
 	}
 }
 

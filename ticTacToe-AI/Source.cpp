@@ -1,8 +1,8 @@
-#include "Board.h"
+#include "Menu.h"
 
 int main()
 {
-	Board board = Board();
-	board.play();
+	Menu menu = Menu();
+	menu.selectMode();
 	return 0;
 }
