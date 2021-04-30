@@ -29,3 +29,18 @@ tuple<int, int> Board::getMove()
 	std::cin >> y;
 	return tuple<int, int>(x, y);
 }
+
+vector<vector<char>> Board::makeMove(vector<vector<char>> board,tuple<int, int> coord, char input)
+{
+
+	board[std::get<0>(coord)][std::get<1>(coord)] = input;
+	return board;
+}
+
+bool Board::isValidMove(vector<vector<char>> board, tuple<int, int> coord)
+{
+	if (board[std::get<0>(coord)][std::get<1>(coord)] == 'X' || board[std::get<0>(coord)][std::get<1>(coord)] == 'O')
+		return false;
+	else
+		return true;
+}

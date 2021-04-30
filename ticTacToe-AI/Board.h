@@ -16,5 +16,7 @@ public:
 	void render(vector<vector<char>> board);
 	bool isBoardFull();
 	tuple<int, int> getMove();
+	vector<vector<char>> makeMove(vector<vector<char>> board, tuple<int, int> coord, char input);
+	bool isValidMove(vector<vector<char>> board,tuple<int, int> coord);
 };
 
