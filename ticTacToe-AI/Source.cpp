@@ -1,8 +1,9 @@
-#include "Board.h"
+#include <iostream>
+#include "Menu.h"
 
 int main()
 {
-	Board board = Board();
-	board.play();
+	Menu menu = Menu();
+	menu.SelectGame();
 	return 0;
 }

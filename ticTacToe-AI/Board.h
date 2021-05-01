@@ -1,22 +1,29 @@
 #include <iostream>
+#include <time.h>
+#include <vector>
+#include <tuple>
+using std::vector;
+using std::tuple;
+
 #pragma once
 class Board
 {
 private:
-	int player = 0;
-	int cell = -1;
-	bool hasWon = false, isTie = false;
-	char board[9] = { '1','2','3','4','5','6','7','8','9' };
-	const char X = 'X';
-	const char O = 'O';
-	char answer = ' ';
+	const int BOARD_WIDTH = 3;
+	const int BOARD_HEIGHT = 3;
 public:
-	void drawBoard();
-	int checkPlayer(int player);
-	void askCell();
-	void putCharacter(int cell);
-	bool checkWin();
-	void play();
-	bool checkIfBoardFull();
+	vector<vector<char>> board;
+	tuple<int, int> coord;
+	vector<vector<char>> newBoard();
+	void render(vector<vector<char>> board);
+	bool isBoardFull(vector<vector<char>> board);
+	tuple<int, int> getMove();
+	vector<vector<char>> makeMove(vector<vector<char>> board, tuple<int, int> coord, char input);
+	bool isValidMove(vector<vector<char>> board, tuple<int, int> coord);
+	char nextPlayer(int turn);
+	char GetWinner(vector<vector<char>> board);
+	tuple<bool, char> checkHorizontal(vector<vector<char>> board);
+	tuple<bool, char> checkVertical(vector<vector<char>> board);
+	tuple<bool, char> checkDiagonals(vector<vector<char>> board);
 };
 
