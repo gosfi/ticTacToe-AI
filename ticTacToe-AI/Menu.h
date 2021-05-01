@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
-#include "Board.h"
+#include "Games.h"
 using std::string;
 #pragma once
 
 class Menu
 {
 private:
-	Board board = Board();
+	Games games = Games();
+	string gameNames[1] = { "Tic tac toe" };
 public:
+	void SelectGame();
 };
 
