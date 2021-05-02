@@ -8,8 +8,9 @@ class Menu
 {
 private:
 	Games games = Games();
-	string gameNames[1] = { "Tic tac toe" };
+	string gameNames[2] = { "Tic tac toe", "Tic tac toe against an AI" };
 public:
 	void SelectGame();
+	void SelectAIDifficulty();
 };
 

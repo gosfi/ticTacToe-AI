@@ -1,5 +1,9 @@
 #include "Board.h"
 
+Board::Board()
+{
+}
+
 vector<vector<char>> Board::newBoard()
 {
 	vector<vector<char>> board = {};
@@ -190,4 +194,22 @@ tuple<bool, char> Board::checkDiagonals(vector<vector<char>> board)
 		return tuple<bool, char>(true, 'O');
 	}
 	return tuple<bool, char>(false, 0);
+}
+tuple<int, int> Board::makeRandomMove(vector<vector<char>> board)
+{
+	int x = 0, y = 0;
+	while (true)
+	{
+		x = rand() % 3;
+		y = rand() % 3;
+		if (isValidMove(board, tuple<int, int>(x, y)))
+		{
+			break;
+		}
+	}
+	return tuple<int, int>(x, y);
+}
+
+Board::~Board()
+{
 }
